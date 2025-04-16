@@ -8,4 +8,7 @@
     <string name="wrong">Wrong !</string>
     <string name="next">Next</string>
     <string name="answer">Answer</string>
+    <string name="move">Move !</string>
+    <string name="stop">STOP !</string>
+    <string name="win">WIN !</string>
 </resources>
