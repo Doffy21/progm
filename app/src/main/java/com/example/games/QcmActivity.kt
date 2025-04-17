@@ -90,6 +90,7 @@ class QcmActivity : AppCompatActivity() {
         super.onDestroy()
         mediaPlayer?.release()
         mediaPlayer = null
+        countDownTimer.cancel()
     }
 
     private fun startTimer() {

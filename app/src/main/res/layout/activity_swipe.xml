@@ -99,22 +99,23 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/status_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:textAlignment="center"
-                android:textSize="28sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/distance_text"
+                android:id="@+id/description_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/direction_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="32dp"
+                android:text="Start !"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
