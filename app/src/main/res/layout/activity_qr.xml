@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,7 +85,6 @@
                     android:id="@+id/score_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
                     android:text="0"
                     android:textSize="30sp"
                     android:textStyle="bold" />
@@ -99,28 +100,43 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/status_text"
+                android:id="@+id/feedback_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:textAlignment="center"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:text=""
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/distance_text"
+                android:id="@+id/question_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:layout_marginBottom="16dp"
+                android:text="Question"
+                android:textSize="34sp" />
+
+            <EditText
+                android:id="@+id/answer_input"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:autofillHints=""
+                android:hint="@string/answer"
+                android:imeOptions="actionDone"
+                android:inputType="number|numberSigned"
+                android:textAlignment="center" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/submit_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="16dp"
                 android:enabled="false"
                 android:text="@string/next" />
+
         </LinearLayout>
 
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

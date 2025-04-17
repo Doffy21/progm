@@ -2,6 +2,7 @@ package com.example.games
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -17,11 +18,21 @@ import androidx.core.view.WindowInsetsCompat
 import java.io.File
 
 class SoundActivity : AppCompatActivity() {
+    private var mediaPlayer: MediaPlayer? = null
 
     private lateinit var startButton: Button
     private lateinit var resultText: TextView
     private lateinit var countdownText: TextView
     private lateinit var scoreText: TextView
+    private lateinit var multiplierText: TextView
+    private lateinit var timeText: TextView
+
+    private var multiplier = 1
+    private var score = 0
+
+    private lateinit var countDownTimer: CountDownTimer
+    private var timeLeftInMillis: Long = 60000 // 60 seconds
+
     private var mediaRecorder: MediaRecorder? = null
     private var maxAmplitude = 0
 
@@ -39,7 +50,10 @@ class SoundActivity : AppCompatActivity() {
         resultText = findViewById(R.id.result_text)
         countdownText = findViewById(R.id.countdown_text)
         scoreText = findViewById(R.id.score_text)
+        multiplierText = findViewById(R.id.multiplier_text)
+        timeText = findViewById(R.id.time_text)
 
+        startTimer()
         startButton.setOnClickListener {
             if (checkAudioPermission()) {
                 startRecording()
@@ -84,6 +98,7 @@ class SoundActivity : AppCompatActivity() {
 
         val tempFile = File.createTempFile("temp", ".3gp", cacheDir)
 
+        @Suppress("DEPRECATION")
         mediaRecorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
@@ -122,6 +137,26 @@ class SoundActivity : AppCompatActivity() {
         }.start()
     }
 
+    private fun startTimer() {
+        val timerText = findViewById<TextView>(R.id.time_text)
+
+        countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeLeftInMillis = millisUntilFinished
+                val secondsLeft = millisUntilFinished / 1000
+                timerText.text = "$secondsLeft"
+            }
+
+            override fun onFinish() {
+                startButton.isEnabled = false
+                mediaPlayer = MediaPlayer.create(this@SoundActivity, R.raw.tada)
+                mediaPlayer?.start()
+            }
+        }
+
+        countDownTimer.start()
+    }
+
     private fun stopRecording() {
         try {
             mediaRecorder?.stop()
@@ -130,19 +165,27 @@ class SoundActivity : AppCompatActivity() {
         }
         mediaRecorder = null
 
-        val score = (maxAmplitude / 100.0).toInt()
-        resultText.text = "$score / 100"
+        val currentScore = (maxAmplitude / 100.0).toInt()
+        resultText.text = "$currentScore / 100"
         countdownText.text = "Finish !"
-        if (score <= 100) {
+        if (currentScore <= 100) {
+            score += currentScore*multiplier
+            multiplier++
+            multiplierText.text = "x$multiplier"
             scoreText.text = "$score"
         } else {
-            scoreText.text = "${100-score}"
+            score += (100-currentScore)*multiplier
+            scoreText.text = "$score"
+            multiplier = 1
+            multiplierText.text = "x$multiplier"
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mediaRecorder?.release()
-        mediaRecorder = null
+        mediaPlayer?.release()
+        countDownTimer.cancel()
+
     }
 }

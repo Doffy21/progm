@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Games"
         tools:targetApi="31">
+        <activity android:name=".QrActivity" />
+        <activity android:name=".SunActivity" />
+        <activity android:name=".HoldActivity" />
+        <activity android:name=".SoundActivity" />
+        <activity android:name=".SwipeActivity" />
+        <activity android:name=".QcmActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
