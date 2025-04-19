@@ -21,6 +21,7 @@
         <activity android:name=".SoundActivity" />
         <activity android:name=".SwipeActivity" />
         <activity android:name=".QcmActivity" />
+        <activity android:name=".FinalActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

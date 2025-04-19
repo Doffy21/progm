@@ -36,10 +36,11 @@ interface TriviaApiService {
     ): Call<TriviaResponse>
 }
 
-class QcmActivity : AppCompatActivity() {
+class QcmActivity : BaseActivity() {
     private var mediaPlayer: MediaPlayer? = null
 
     private lateinit var questionText: TextView
+    private lateinit var numberGameText: TextView
     private lateinit var scoreText: TextView
     private lateinit var feedbackText: TextView
     private lateinit var submitButton: Button
@@ -69,11 +70,17 @@ class QcmActivity : AppCompatActivity() {
         submitButton = findViewById(R.id.submit_button)
         multiplierText = findViewById(R.id.multiplier_text)
         feedbackText = findViewById(R.id.feedback_text)
+        numberGameText = findViewById(R.id.number_game_text)
+        numberGameText.text = "Game $gameIndex"
         choiceButtons = listOf(
             findViewById(R.id.choice1),
             findViewById(R.id.choice2),
             findViewById(R.id.choice3)
         )
+
+        submitButton.setOnClickListener {
+            goToNextGame(globalScore + score)
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://opentdb.com/")

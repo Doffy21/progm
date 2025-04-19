@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,26 +15,31 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="PLAY"
+            android:text="@string/score"
             android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/final_score_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
             android:textSize="34sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/solo_button"
+            android:id="@+id/restart_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SOLO" />
+            android:text="RESTART" />
 
         <Button
-            android:id="@+id/multi_button"
+            android:id="@+id/home_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MULTI" />
-
+            android:text="HOME" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

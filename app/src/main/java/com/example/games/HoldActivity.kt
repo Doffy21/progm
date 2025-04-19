@@ -14,14 +14,16 @@ import kotlin.random.Random
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import android.widget.Button
 
 
-class HoldActivity : AppCompatActivity() {
-
+class HoldActivity : BaseActivity() {
+    private lateinit var numberGameText: TextView
     private lateinit var statusText: TextView
     private lateinit var scoreText: TextView
     private lateinit var multiplierText: TextView
     private lateinit var timeText: TextView
+    private lateinit var submitButton: Button
 
     private var bonusTimer: CountDownTimer? = null
     private var countDownTimer: CountDownTimer? = null
@@ -49,6 +51,13 @@ class HoldActivity : AppCompatActivity() {
         scoreText = findViewById(R.id.score_text)
         multiplierText = findViewById(R.id.multiplier_text)
         timeText = findViewById(R.id.time_text)
+        submitButton = findViewById(R.id.submit_button)
+        numberGameText = findViewById(R.id.number_game_text)
+        numberGameText.text = "Game $gameIndex"
+
+        submitButton.setOnClickListener {
+            goToNextGame(globalScore + score)
+        }
 
         startTimer()
     }
@@ -118,6 +127,7 @@ class HoldActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 downIsPossible = false
+                submitButton.isEnabled = true
                 mediaPlayer = MediaPlayer.create(this@HoldActivity, R.raw.tada)
                 mediaPlayer?.start()
                 stopGame()
@@ -132,6 +142,7 @@ class HoldActivity : AppCompatActivity() {
         if (malusActive) {
             countDownTimer?.cancel()
             message = "Late !"
+            submitButton.isEnabled = true
             mediaPlayer = MediaPlayer.create(this@HoldActivity, R.raw.fail)
             mediaPlayer?.start()
         } else if (downIsPossible) {

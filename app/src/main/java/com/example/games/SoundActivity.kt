@@ -17,10 +17,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.io.File
 
-class SoundActivity : AppCompatActivity() {
+class SoundActivity : BaseActivity() {
     private var mediaPlayer: MediaPlayer? = null
-
+    private lateinit var numberGameText: TextView
     private lateinit var startButton: Button
+    private lateinit var submitButton: Button
     private lateinit var resultText: TextView
     private lateinit var countdownText: TextView
     private lateinit var scoreText: TextView
@@ -47,12 +48,14 @@ class SoundActivity : AppCompatActivity() {
         }
 
         startButton = findViewById(R.id.start_button)
+        submitButton = findViewById(R.id.submit_button)
         resultText = findViewById(R.id.result_text)
         countdownText = findViewById(R.id.countdown_text)
         scoreText = findViewById(R.id.score_text)
         multiplierText = findViewById(R.id.multiplier_text)
         timeText = findViewById(R.id.time_text)
-
+        numberGameText = findViewById(R.id.number_game_text)
+        numberGameText.text = "Game $gameIndex"
         startTimer()
         startButton.setOnClickListener {
             if (checkAudioPermission()) {
@@ -60,6 +63,10 @@ class SoundActivity : AppCompatActivity() {
             } else {
                 requestAudioPermission()
             }
+        }
+
+        submitButton.setOnClickListener {
+            goToNextGame(globalScore + score)
         }
     }
 
@@ -149,6 +156,7 @@ class SoundActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 startButton.isEnabled = false
+                submitButton.isEnabled = true
                 mediaPlayer = MediaPlayer.create(this@SoundActivity, R.raw.tada)
                 mediaPlayer?.start()
             }
