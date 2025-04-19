@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +17,9 @@ import androidx.core.view.WindowInsetsCompat
 import kotlin.math.sqrt
 import kotlin.random.Random
 
-class SunActivity : AppCompatActivity(), SensorEventListener {
+class SunActivity : BaseActivity(), SensorEventListener {
     private var mediaPlayer: MediaPlayer? = null
-
+    private lateinit var numberGameText: TextView
     private lateinit var sensorManager: SensorManager
     private var accelerometer: Sensor? = null
     private lateinit var statusText: TextView
@@ -26,6 +27,7 @@ class SunActivity : AppCompatActivity(), SensorEventListener {
     private lateinit var scoreText: TextView
     private lateinit var multiplierText: TextView
     private lateinit var timeText: TextView
+    private lateinit var submitButton: Button
 
     private lateinit var countDownTimer: CountDownTimer
     private var timeLeftInMillis: Long = 60000 // 60 seconds
@@ -60,9 +62,16 @@ class SunActivity : AppCompatActivity(), SensorEventListener {
         scoreText = findViewById(R.id.score_text)
         multiplierText = findViewById(R.id.multiplier_text)
         timeText = findViewById(R.id.time_text)
+        submitButton = findViewById(R.id.submit_button)
+        numberGameText = findViewById(R.id.number_game_text)
+        numberGameText.text = "Game $gameIndex"
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        submitButton.setOnClickListener {
+            goToNextGame(globalScore + score)
+        }
 
         startGame()
         startTimer()
@@ -87,6 +96,7 @@ class SunActivity : AppCompatActivity(), SensorEventListener {
             }
 
             override fun onFinish() {
+                submitButton.isEnabled = true
                 statusText.text = "Finish !"
                 mediaPlayer = MediaPlayer.create(this@SunActivity, R.raw.tada)
                 mediaPlayer?.start()
@@ -162,6 +172,7 @@ class SunActivity : AppCompatActivity(), SensorEventListener {
         mediaPlayer?.release()
         mediaPlayer = null
         stopTimer.cancel()
+        countDownTimer.cancel()
     }
 
     override fun onPause() {
@@ -197,6 +208,7 @@ class SunActivity : AppCompatActivity(), SensorEventListener {
                         countDownTimer.cancel()
                         score += 100*multiplier
                         scoreText.text = "$score"
+                        submitButton.isEnabled = true
                     }
                 }
             }

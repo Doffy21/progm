@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -13,15 +14,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlin.math.abs
 
-class SwipeActivity : AppCompatActivity() {
+class SwipeActivity : BaseActivity() {
     private var mediaPlayer: MediaPlayer? = null
-
+    private lateinit var numberGameText: TextView
     private lateinit var directionText: TextView
     private lateinit var scoreText: TextView
     private lateinit var gestureDetector: GestureDetector
     private lateinit var descriptionText: TextView
     private lateinit var multiplierText: TextView
     private lateinit var timeText: TextView
+    private lateinit var submitButton: Button
 
     private lateinit var countDownTimer: CountDownTimer
     private var timeLeftInMillis: Long = 60000 // 60 seconds
@@ -47,8 +49,15 @@ class SwipeActivity : AppCompatActivity() {
         descriptionText = findViewById(R.id.description_text)
         multiplierText = findViewById(R.id.multiplier_text)
         timeText = findViewById(R.id.time_text)
+        submitButton = findViewById(R.id.submit_button)
+        numberGameText = findViewById(R.id.number_game_text)
+        numberGameText.text = "Game $gameIndex"
 
         gestureDetector = GestureDetector(this, gestureListener)
+
+        submitButton.setOnClickListener {
+            goToNextGame(globalScore + score)
+        }
 
         nextChallenge()
         startTimer()
@@ -65,13 +74,13 @@ class SwipeActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                submitButton.isEnabled = true
                 isFinished = true
                 inputAllowed = false
                 descriptionText.text = "Finish !"
                 mediaPlayer = MediaPlayer.create(this@SwipeActivity, R.raw.tada)
                 mediaPlayer?.start()
                 swipeTimer?.cancel()
-
             }
         }.start()
     }

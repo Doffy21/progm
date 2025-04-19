@@ -14,9 +14,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlin.random.Random
 
-class QrActivity : AppCompatActivity() {
+class QrActivity : BaseActivity() {
     private var mediaPlayer: MediaPlayer? = null
-
+    private lateinit var numberGameText: TextView
     private lateinit var questionText: TextView
     private lateinit var answerInput: EditText
     private lateinit var submitButton: Button
@@ -48,6 +48,8 @@ class QrActivity : AppCompatActivity() {
         feedbackText = findViewById(R.id.feedback_text)
         scoreText = findViewById(R.id.score_text)
         multiplierText = findViewById(R.id.multiplier_text)
+        numberGameText = findViewById(R.id.number_game_text)
+        numberGameText.text = "Game $gameIndex"
 
         startTimer()
         generateQuestion()
@@ -62,7 +64,7 @@ class QrActivity : AppCompatActivity() {
         }
 
         submitButton.setOnClickListener {
-
+            goToNextGame(globalScore + score)
         }
     }
 
