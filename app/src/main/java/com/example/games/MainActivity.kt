@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.games.bluetooth.LobbyActivity
 
 val allGames = arrayListOf(
     SwipeActivity::class.java,
@@ -41,9 +42,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.multi_button).setOnClickListener {
-
+            val intent = Intent(this, LobbyActivity::class.java)
+            startActivity(intent)
         }
-
 
     }
 
