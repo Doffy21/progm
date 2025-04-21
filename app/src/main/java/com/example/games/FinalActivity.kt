@@ -40,7 +40,7 @@ class FinalActivity : AppCompatActivity() {
 
         scoreText.text = "$myScore"
 
-        if (!isMultiplayer) {
+        if (!isMultiplayer || role == "train") {
             mediaPlayer = MediaPlayer.create(this@FinalActivity, R.raw.finish)
             mediaPlayer?.start()
             opponentScoreText.text = ""
@@ -58,13 +58,22 @@ class FinalActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.restart_button).setOnClickListener {
-            Log.d("FinalActivity", "Restart cliqué, role=$role")
-            if (role != null) {
+            if (role == "client" || role == "host") {
                 BluetoothConnectionManager.close()
                 val intent = Intent(this, LobbyActivity::class.java)
                 startActivity(intent)
                 finish()
-            } else {
+            } else if (role == "train") {
+                val index = intent.getIntExtra("gameIndex", 0)
+                val intent = Intent(this, allGames[index-1])
+                intent.putExtra("currentScore", 0)
+                intent.putExtra("gameIndex", index)
+                intent.putExtra("gameList", allGames[index-1])
+                intent.putExtra("role", "train")
+                startActivity(intent)
+                finish()
+            }
+            else {
                 allGames.shuffle()
                 val selectedGames = ArrayList(allGames.take(3))
                 val firstGame = selectedGames[0]
@@ -137,10 +146,11 @@ class FinalActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun launch(activity: AppCompatActivity, finalScore: Int, role: String?) {
+        fun launch(activity: AppCompatActivity, finalScore: Int, role: String?, gameIndex: Int) {
             val intent = Intent(activity, FinalActivity::class.java)
             intent.putExtra("finalScore", finalScore)
             if (role != null) intent.putExtra("role", role)
+            if (role == "train") intent.putExtra("gameIndex", gameIndex)
             activity.startActivity(intent)
             activity.finish()
         }
