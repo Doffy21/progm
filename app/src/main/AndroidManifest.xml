@@ -29,6 +29,7 @@
         <activity android:name=".SwipeActivity" />
         <activity android:name=".QcmActivity" />
         <activity android:name=".FinalActivity" />
+        <activity android:name=".TrainActivity" />
         <activity android:name=".bluetooth.LobbyActivity" />
         <activity
             android:name=".MainActivity"

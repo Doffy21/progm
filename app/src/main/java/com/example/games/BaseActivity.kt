@@ -23,16 +23,9 @@ abstract class BaseActivity : AppCompatActivity() {
                 ?: arrayListOf()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (role !=null) {
-            BluetoothConnectionManager.close()
-        }
-    }
-
     protected fun goToNextGame(finalScore: Int) {
         if (gameIndex >= gameList.size) {
-            FinalActivity.launch(this, finalScore, role)
+            FinalActivity.launch(this, finalScore, role, gameIndex)
         } else {
             val nextIntent = Intent(this, gameList[gameIndex])
             nextIntent.putExtra("currentScore", finalScore)

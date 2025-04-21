@@ -38,5 +38,11 @@
             android:layout_height="wrap_content"
             android:text="MULTI" />
 
+        <Button
+            android:id="@+id/train_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TRAINING" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

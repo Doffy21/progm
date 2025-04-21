@@ -18,27 +18,46 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:text="LOBBY"
+            android:text="TRAIN"
             android:textAlignment="center"
             android:textSize="34sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/host_button"
+            android:id="@+id/swipe_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HOST" />
+            android:text="SWIPE" />
 
         <Button
-            android:id="@+id/discover_button"
+            android:id="@+id/sound_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CLIENT" />
+            android:text="CHECKSOUND" />
 
-        <ListView
-            android:id="@+id/device_list"
+        <Button
+            android:id="@+id/hold_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:text="HOLDON" />
+
+        <Button
+            android:id="@+id/sunny_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUNNY" />
+
+        <Button
+            android:id="@+id/qr_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Q/R" />
+
+        <Button
+            android:id="@+id/qcm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="QCM" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
